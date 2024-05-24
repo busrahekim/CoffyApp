@@ -1,32 +1,18 @@
 import React from "react";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Link, Tabs } from "expo-router";
-import { Pressable } from "react-native";
-import Colors from "@/constants/Colors";
+import { Tabs } from "expo-router";
 import { BlurView } from "expo-blur";
+import Colors from "@/constants/Colors";
+import { TabBarIcon } from "@/components/TabBarIcon";
+import CustomHeader from "@/components/CustomHeader";
 
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>["name"];
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
-
-export default function TabLayout() {
+const TabLayout = () => {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors.primary,
+        tabBarActiveTintColor: Colors.textColor,
+        headerShown: false,
         tabBarBackground: () => (
-          <BlurView
-            intensity={100}
-            tint={"extraLight"}
-            style={{
-              flex: 1,
-              backgroundColor: "rgba(0,0,0,0.05)",
-            }}
-          />
+          <BlurView className="flex-1 bg-primary" intensity={0} />
         ),
         tabBarStyle: {
           backgroundColor: "transparent",
@@ -38,14 +24,80 @@ export default function TabLayout() {
           borderTopWidth: 0,
         },
       }}
-    >     
+    >
       <Tabs.Screen
-        name="two"
+        name="index"
         options={{
-          title: "Tab Two",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: "",
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon
+              name="home"
+              focused={focused}
+              color={focused ? Colors.textColor : Colors.textColorMuted}
+            />
+          ),
+          headerTransparent: true,
+          header: () => <CustomHeader />,
+        }}
+      />
+      <Tabs.Screen
+        name="explore"
+        options={{
+          title: "",
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon
+              name="search-outline"
+              focused={focused}
+              color={focused ? Colors.textColor : Colors.textColorMuted}
+            />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="cart"
+        options={{
+          title: "",
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon
+              name="cart"
+              focused={focused}
+              color={Colors.textColor}
+              isCart
+            />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="notification"
+        options={{
+          title: "",
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon
+              name="notifications"
+              focused={focused}
+              color={focused ? Colors.textColor : Colors.textColorMuted}
+            />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: "",
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon
+              name="person"
+              focused={focused}
+              color={focused ? Colors.textColor : Colors.textColorMuted}
+            />
+          ),
         }}
       />
     </Tabs>
   );
-}
+};
+
+export default TabLayout;
