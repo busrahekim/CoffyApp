@@ -10,7 +10,6 @@ const TabLayout = () => {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors.textColor,
-        headerShown: false,
         tabBarBackground: () => (
           <BlurView className="flex-1 bg-primary" intensity={0} />
         ),
@@ -51,6 +50,7 @@ const TabLayout = () => {
               color={focused ? Colors.textColor : Colors.textColorMuted}
             />
           ),
+          headerShown: false,
         }}
       />
 
@@ -66,6 +66,7 @@ const TabLayout = () => {
               isCart
             />
           ),
+          headerShown: false,
         }}
       />
 
@@ -80,6 +81,7 @@ const TabLayout = () => {
               color={focused ? Colors.textColor : Colors.textColorMuted}
             />
           ),
+          headerShown: false,
         }}
       />
 
@@ -94,6 +96,7 @@ const TabLayout = () => {
               color={focused ? Colors.textColor : Colors.textColorMuted}
             />
           ),
+          headerShown: false,
         }}
       />
     </Tabs>

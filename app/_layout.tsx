@@ -6,6 +6,9 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 import { ActivityIndicator, View } from "react-native";
 import Colors from "@/constants/Colors";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -54,7 +57,11 @@ const RootLayout = () => {
 };
 
 const RootLayoutNav = () => {
-  return <RootLayout />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RootLayout />
+    </QueryClientProvider>
+  );
 };
 
 export default RootLayoutNav;
