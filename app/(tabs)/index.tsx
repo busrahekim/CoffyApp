@@ -7,9 +7,9 @@ import {
 } from "react-native";
 import { useHeaderHeight } from "@react-navigation/elements";
 import FilterList from "@/components/FilterList";
-import CoffeCard from "@/components/CoffeCard";
+import CoffeeCard from "@/components/CoffeeCard";
 import { useState } from "react";
-import { CoffeItems } from "@/constants/DummyDatas";
+// import { CoffeItems } from "@/constants/DummyDatas";
 import { useQuery } from "@tanstack/react-query";
 import { baseUrl } from "@/constants/Endpoint";
 import LoadingView from "../loading";
@@ -78,7 +78,7 @@ const HomeScreen = () => {
           <CoffeCard item={coffee} key={index} />
         ))} */}
         {coffeeList.map((coffee: ApiCoffeItem, index: number) => (
-          <CoffeCard item={coffee} key={index} />
+          <CoffeeCard item={coffee} key={index} />
         ))}
       </ScrollView>
     </ScrollView>
