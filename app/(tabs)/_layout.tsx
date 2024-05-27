@@ -39,20 +39,6 @@ const TabLayout = () => {
           header: () => <CustomHeader />,
         }}
       />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: "",
-          tabBarIcon: ({ focused }) => (
-            <TabBarIcon
-              name="search-outline"
-              focused={focused}
-              color={focused ? Colors.textColor : Colors.textColorMuted}
-            />
-          ),
-          headerShown: false,
-        }}
-      />
 
       <Tabs.Screen
         name="cart"

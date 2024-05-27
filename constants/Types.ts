@@ -17,3 +17,8 @@ type ApiCoffeItem = {
   image: string;
   id: number;
 };
+
+type CupSize = {
+  title: string;
+  sizePrice: number;
+}

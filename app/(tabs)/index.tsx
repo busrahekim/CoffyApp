@@ -1,10 +1,4 @@
-import {
-  ActivityIndicator,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { useHeaderHeight } from "@react-navigation/elements";
 import FilterList from "@/components/FilterList";
 import CoffeeCard from "@/components/CoffeeCard";
@@ -14,6 +8,8 @@ import { useQuery } from "@tanstack/react-query";
 import { baseUrl } from "@/constants/Endpoint";
 import LoadingView from "../loading";
 import ErrorView from "../error";
+import { Ionicons } from "@expo/vector-icons";
+import Colors from "@/constants/Colors";
 
 const HomeScreen = () => {
   const headerHeight = useHeaderHeight();
@@ -81,6 +77,30 @@ const HomeScreen = () => {
           <CoffeeCard item={coffee} key={index} />
         ))}
       </ScrollView>
+
+      <View className="bg-slate-900 flex flex-row justify-between items-center mx-2 rounded-md p-2">
+        <Text className="text-textColor font-sans">Rate the app</Text>
+        <View className="flex flex-row gap-1">
+          <Ionicons
+            name="star-outline"
+            size={20}
+            color={Colors.textColor}
+            className="text-textColor font-sans"
+          />
+          <Ionicons
+            name="star-outline"
+            size={20}
+            color={Colors.textColor}
+            className="text-textColor font-sans"
+          />
+          <Ionicons
+            name="star-outline"
+            size={20}
+            color={Colors.textColor}
+            className="text-textColor font-sans"
+          />
+        </View>
+      </View>
     </ScrollView>
   );
 };

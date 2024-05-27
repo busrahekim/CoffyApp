@@ -1,12 +1,13 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
-import { ActivityIndicator, View } from "react-native";
+import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import Colors from "@/constants/Colors";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Ionicons } from "@expo/vector-icons";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 const RootLayout = () => {
+  const router = useRouter();
   const [loaded, error] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
@@ -52,6 +54,34 @@ const RootLayout = () => {
   return (
     <Stack>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="coffee-details"
+        options={{
+          title: "",
+          // headerBackTitle: "",
+          // headerShadowVisible: false,
+          headerShown: false 
+          // headerStyle: { backgroundColor: Colors.primary },
+          // headerLeft: () => (
+          //   <TouchableOpacity onPress={router.back}>
+          //     <Ionicons
+          //       name="arrow-back"
+          //       size={34}
+          //       color={Colors.textColorMuted}
+          //     />
+          //   </TouchableOpacity>
+          // ),
+          // headerRight: () => (
+          //   <TouchableOpacity onPress={addFavoriteList}>
+          //     <Ionicons
+          //       name="heart"
+          //       size={34}
+          //       color={Colors.textColorMuted}
+          //     />
+          //   </TouchableOpacity>
+          // ),
+        }}
+      />
     </Stack>
   );
 };

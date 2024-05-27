@@ -3,17 +3,38 @@ import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
 import useStore from "@/store/cartStore";
+import { useRouter } from "expo-router";
 
 const CoffeeCard = ({ item }: { item: ApiCoffeItem }) => {
+  const router = useRouter();
   const addItemToCart = useStore((state: any) => state.addItemToCart);
+  const rating = (Math.random() * 4.2 + 1).toFixed(1);
+  const price = (item.id * Math.random()).toFixed(2);
 
-  const cartItems = useStore((state) => state.cartItems);
+  const navigateToDetails = () => {
+    router.push({
+      pathname: "/coffee-details",
+      params: {
+        id: item.id,
+        image: item.image,
+        title: item.title,
+        description: item.description,
+        ingredients: item.ingredients,
+        rating: rating,
+        price: price,
+      },
+    });
+  };
 
+  // const cartItems = useStore((state) => state.cartItems);
   // Log the cartItems to the console
-  console.log("Cart Items:", cartItems);
+  // console.log("Cart Items:", cartItems);
 
   return (
-    <View className="w-44 rounded-xl bg-slate-900 m-2">
+    <TouchableOpacity
+      className="w-44 rounded-xl bg-slate-900 m-2"
+      onPress={navigateToDetails}
+    >
       <View className="relative">
         <Image
           source={{ uri: item.image }}
@@ -26,9 +47,7 @@ const CoffeeCard = ({ item }: { item: ApiCoffeItem }) => {
             color={Colors.textColor}
             style={{ marginRight: 3 }}
           />
-          <Text className="text-textColor font-bold">
-            {(Math.random() * 4.2 + 1).toFixed(1)}
-          </Text>
+          <Text className="text-textColor font-bold">{rating}</Text>
         </View>
       </View>
 
@@ -56,7 +75,7 @@ const CoffeeCard = ({ item }: { item: ApiCoffeItem }) => {
           <View className="flex flex-row items-center gap-1">
             <Text className="font-bold text-secondary font-sans">$</Text>
             <Text className="font-semibold text-textColor font-sans text-xl">
-              {(item.id * Math.random()).toFixed(2)}
+              {price}
             </Text>
           </View>
           <TouchableOpacity
@@ -67,7 +86,7 @@ const CoffeeCard = ({ item }: { item: ApiCoffeItem }) => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

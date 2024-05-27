@@ -28,7 +28,7 @@ export function TabBarIcon({
               {...rest}
             />
           </View>
-          {cartItemsLength && cartItemsLength > 0 && (
+          {cartItemsLength > 0 && (
             <View className="absolute top-[-5px] right-[-5px] bg-slate-900 rounded-full min-w-[18px] h-5 justify-center items-center">
               <Text style={{ color: "white", fontSize: 12 }}>
                 {cartItemsLength}

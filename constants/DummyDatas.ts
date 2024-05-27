@@ -6,6 +6,12 @@ export const FilterItems: FilterItem[] = [
   { title: "Milks", active: false },
 ];
 
+export const Cups: CupSize[] = [
+  { title: "S", sizePrice: 1 },
+  { title: "M", sizePrice: 1.5 },
+  { title: "L", sizePrice: 2 },
+];
+
 // export const CoffeItems: CoffeItem[] = [
 //   {
 //     name: "Cappuccino",
