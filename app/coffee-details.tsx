@@ -5,18 +5,15 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import useStore from "@/store/cartStore";
 
 const cupSizes = ["S", "M", "L"];
 
 const CoffeeDetails = () => {
-  const router = useRouter();
-  const [isFavourited, setIsFavourited] = useState(false);
-  const [activeSizeIndex, setActiveSizeIndex] = useState(0);
-
   const { id, image, title, description, ingredients, rating, price } =
     useLocalSearchParams<{
       id: any;
@@ -28,8 +25,52 @@ const CoffeeDetails = () => {
       price: any;
     }>();
 
-  const addToFavourites = () => {
+  const item: ApiCoffeItem = {
+    id: parseInt(id, 10),
+    image: image!,
+    title: title!,
+    description: description!,
+    ingredients: ingredients!,
+    rating: rating!,
+    price: price!,
+  };
+
+  const router = useRouter();
+  const [isFavourited, setIsFavourited] = useState(false);
+  const [isAdded, setIsAdded] = useState(false);
+  const [activeSizeIndex, setActiveSizeIndex] = useState(0);
+
+  const addItemToFavorites = useStore(
+    (state: { addItemToFavorites: any }) => state.addItemToFavorites
+  );
+  const removeItemFromFavorites = useStore(
+    (state: { removeItemFromFavorites: any }) => state.removeItemFromFavorites
+  );
+
+  const addItemToCart = useStore((state: any) => state.addItemToCart);
+
+  const favorites = useStore((state) => state.favorites);
+  // Log the favorites to the console
+  console.log("favorites:", favorites);
+
+  useEffect(() => {
+    setIsFavourited(
+      favorites.some((favoritedItem) => favoritedItem.id === item.id)
+    );
+  }, [favorites, item.id]);
+
+  const toggleFavorite = () => {
+    if (isFavourited) {
+      removeItemFromFavorites(item.id);
+    } else {
+      addItemToFavorites(item);
+    }
     setIsFavourited(!isFavourited);
+  };
+
+  const toggleAddCart = () => {
+    addItemToCart(item);
+    setIsAdded(true);
   };
 
   const handleSizeClick = (index: number) => {
@@ -48,7 +89,7 @@ const CoffeeDetails = () => {
         <TouchableOpacity
           className="absolute top-12 right-4 rounded-md p-2"
           style={{ backgroundColor: "rgba(51, 60, 75, 0.5)" }}
-          onPress={addToFavourites}
+          onPress={toggleFavorite}
         >
           <Ionicons
             name={isFavourited ? "heart" : "heart-outline"}
@@ -83,7 +124,7 @@ const CoffeeDetails = () => {
               <Text className="text-textColor font-bold">{rating}</Text>
             </View>
           </View>
-          <View className="rounded-md bg-slate-900 w-16 justify-center items-center p-1 mt-2">
+          <View className="rounded-md bg-slate-900 justify-center items-center p-1 mt-2">
             <Text className="text-textColorMuted font-sans text-sm">
               {ingredients!}
             </Text>
@@ -133,10 +174,22 @@ const CoffeeDetails = () => {
             {price}
           </Text>
         </View>
-        <TouchableOpacity className="rounded-xl bg-secondary flex-1 justify-center items-center">
-          <Text className="text-textColor font-sant text-lg p-2">
-            Add to Cart
-          </Text>
+        <TouchableOpacity
+          className="rounded-xl bg-secondary flex-1 justify-center items-center flex flex-row"
+          onPress={toggleAddCart}
+        >
+          {isAdded ? (
+            <>
+              <Text className="text-textColor font-sant text-lg p-2">
+                Added to Cart
+              </Text>
+              <Ionicons name="checkmark" size={24} color={Colors.textColor} />
+            </>
+          ) : (
+            <Text className="text-textColor font-sant text-lg p-2">
+              Add to Cart
+            </Text>
+          )}
         </TouchableOpacity>
       </View>
     </SafeAreaView>

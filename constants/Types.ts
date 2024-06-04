@@ -16,9 +16,11 @@ type ApiCoffeItem = {
   ingredients: string[];
   image: string;
   id: number;
+  rating: number;
+  price: number;
 };
 
 type CupSize = {
   title: string;
   sizePrice: number;
-}
+};

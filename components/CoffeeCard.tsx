@@ -8,8 +8,8 @@ import { useRouter } from "expo-router";
 const CoffeeCard = ({ item }: { item: ApiCoffeItem }) => {
   const router = useRouter();
   const addItemToCart = useStore((state: any) => state.addItemToCart);
-  const rating = (Math.random() * 4.2 + 1).toFixed(1);
-  const price = (item.id * Math.random()).toFixed(2);
+  const rating = 4.2;
+  const price = 2.05;
 
   const navigateToDetails = () => {
     router.push({
@@ -26,9 +26,6 @@ const CoffeeCard = ({ item }: { item: ApiCoffeItem }) => {
     });
   };
 
-  // const cartItems = useStore((state) => state.cartItems);
-  // Log the cartItems to the console
-  // console.log("Cart Items:", cartItems);
 
   return (
     <TouchableOpacity
