@@ -26,6 +26,18 @@ const CoffeeCard = ({ item }: { item: ApiCoffeItem }) => {
     });
   };
 
+  const toggleAddCart = () => {
+    const cartItem: CartItem = {
+      id: item.id,
+      image: item.image!,
+      title: item.title!,
+      price: price!,
+      cupSize: { title: "S", sizePrice: 1 },
+      quantity: 1
+    };
+
+    addItemToCart(cartItem);
+  };
 
   return (
     <TouchableOpacity
@@ -52,17 +64,6 @@ const CoffeeCard = ({ item }: { item: ApiCoffeItem }) => {
         <Text className="font-sans font-semibold text-lg text-textColor">
           {item.title}
         </Text>
-        {/* <FlatList
-          data={item.ingredients}
-          renderItem={({ item: ingredient }) => (
-            <View className="flex flex-row">
-              <Text className="text-textColorMuted text-sm">{ingredient}</Text>
-            </View>
-          )}
-          keyExtractor={(ingredient, index) => index.toString()}
-          horizontal={true}
-
-        ></FlatList> */}
 
         <Text className="text-textColorMuted text-sm">
           {item.ingredients[0]}
@@ -77,7 +78,7 @@ const CoffeeCard = ({ item }: { item: ApiCoffeItem }) => {
           </View>
           <TouchableOpacity
             className="bg-secondary rounded-md items-center justify-center"
-            onPress={() => addItemToCart(item)}
+            onPress={toggleAddCart}
           >
             <Ionicons name="add" size={24} color={Colors.textColor} />
           </TouchableOpacity>

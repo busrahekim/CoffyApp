@@ -10,8 +10,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import useStore from "@/store/cartStore";
-
-const cupSizes = ["S", "M", "L"];
+import { Cups } from "@/constants/DummyDatas";
 
 const CoffeeDetails = () => {
   const { id, image, title, description, ingredients, rating, price } =
@@ -38,20 +37,19 @@ const CoffeeDetails = () => {
   const router = useRouter();
   const [isFavourited, setIsFavourited] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
-  const [activeSizeIndex, setActiveSizeIndex] = useState(0);
+  const [activeSize, setActiveSize] = useState<CupSize>({
+    title: "S",
+    sizePrice: 1,
+  });
 
+  const addItemToCart = useStore((state: any) => state.addItemToCart);
+  const favorites = useStore((state) => state.favorites);
   const addItemToFavorites = useStore(
     (state: { addItemToFavorites: any }) => state.addItemToFavorites
   );
   const removeItemFromFavorites = useStore(
     (state: { removeItemFromFavorites: any }) => state.removeItemFromFavorites
   );
-
-  const addItemToCart = useStore((state: any) => state.addItemToCart);
-
-  const favorites = useStore((state) => state.favorites);
-  // Log the favorites to the console
-  console.log("favorites:", favorites);
 
   useEffect(() => {
     setIsFavourited(
@@ -69,12 +67,21 @@ const CoffeeDetails = () => {
   };
 
   const toggleAddCart = () => {
-    addItemToCart(item);
+    const cartItem: CartItem = {
+      id: parseInt(id, 10),
+      image: image!,
+      title: title!,
+      price: price!,
+      cupSize: activeSize,
+      quantity: 1,
+    };
+
+    addItemToCart(cartItem);
     setIsAdded(true);
   };
 
-  const handleSizeClick = (index: number) => {
-    setActiveSizeIndex(index);
+  const handleSizeClick = (cup: CupSize) => {
+    setActiveSize(cup);
   };
 
   return (
@@ -142,25 +149,25 @@ const CoffeeDetails = () => {
         <View>
           <Text className="text-textColor font-sans text-xl">Size</Text>
           <View className="flex flex-row justify-between gap-x-3 mt-2">
-            {cupSizes.map((size, index) => (
+            {Cups.map((cup, index) => (
               <TouchableOpacity
                 key={index}
                 className={`rounded-xl justify-center items-center w-20 flex-1 border ${
-                  activeSizeIndex === index
+                  activeSize.title === cup.title
                     ? "border-secondary"
                     : "border-primary"
                 }`}
                 style={{ backgroundColor: "rgba(51, 60, 75, 0.5)" }}
-                onPress={() => handleSizeClick(index)}
+                onPress={() => handleSizeClick(cup)}
               >
                 <Text
                   className={`font-sant text-lg p-2 ${
-                    activeSizeIndex === index
+                    activeSize.title === cup.title
                       ? "text-secondary"
                       : "text-textColorMuted"
                   }`}
                 >
-                  {size}
+                  {cup.title}
                 </Text>
               </TouchableOpacity>
             ))}

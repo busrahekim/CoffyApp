@@ -3,13 +3,6 @@ type FilterItem = {
   active: boolean;
 };
 
-// type CoffeItem = {
-//   name: string;
-//   subTitle?: string;
-//   price: string;
-//   rating: string;
-// };
-
 type ApiCoffeItem = {
   title: string;
   description: string;
@@ -23,4 +16,13 @@ type ApiCoffeItem = {
 type CupSize = {
   title: string;
   sizePrice: number;
+};
+
+type CartItem = {
+  id: number;
+  image: string;
+  title: string;
+  price: number;
+  cupSize: CupSize;
+  quantity: number;
 };
