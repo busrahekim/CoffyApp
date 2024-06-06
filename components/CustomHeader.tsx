@@ -5,9 +5,11 @@ import { Link } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Colors from "@/constants/Colors";
+import useCoffeeSearch from "@/hooks/useCoffeeSearch";
 
 const CustomHeader = () => {
   const { top } = useSafeAreaInsets();
+  const { setSearchTerm, searchTerm } = useCoffeeSearch();
 
   return (
     <BlurView intensity={0} tint={"extraLight"} style={{ paddingTop: top * 2 }}>
@@ -22,14 +24,6 @@ const CustomHeader = () => {
             <Text className="text-white font-medium text-lg">BH</Text>
           </TouchableOpacity>
         </Link>
-
-        {/*
-        <View className="rounded-full bg-[#D8DCE2] w-10 h-10 justify-center items-center">
-          <Ionicons name={"stats-chart"} size={20} color={Colors.textColor} />
-        </View>
-        <View className="rounded-full bg-[#D8DCE2] w-10 h-10 justify-center items-center">
-          <Ionicons name={"card"} size={20} color={Colors.textColor} />
-        </View> */}
       </View>
       <View className="mx-4 flex-1 mt-5">
         <View className="flex-row justify-center items-center rounded-xl bg-textColorMuted px-2 gap-x-2">
@@ -43,6 +37,8 @@ const CustomHeader = () => {
             className="flex-1 p-2 pl-0 bg-textColorMuted text-textColor rounded-full"
             placeholder="Search"
             placeholderTextColor={Colors.textColor}
+            onChangeText={setSearchTerm}
+            value={searchTerm}
           />
         </View>
       </View>

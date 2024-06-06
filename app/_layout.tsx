@@ -60,7 +60,7 @@ const RootLayout = () => {
           title: "",
           // headerBackTitle: "",
           // headerShadowVisible: false,
-          headerShown: false 
+          headerShown: false,
           // headerStyle: { backgroundColor: Colors.primary },
           // headerLeft: () => (
           //   <TouchableOpacity onPress={router.back}>

@@ -1,5 +1,6 @@
 type FilterItem = {
-  title: string;
+  key: string;
+  value: string;
   active: boolean;
 };
 

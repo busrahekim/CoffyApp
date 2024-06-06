@@ -3,31 +3,24 @@ import { useHeaderHeight } from "@react-navigation/elements";
 import FilterList from "@/components/FilterList";
 import CoffeeCard from "@/components/CoffeeCard";
 import { useState } from "react";
-// import { CoffeItems } from "@/constants/DummyDatas";
-import { useQuery } from "@tanstack/react-query";
-import { baseUrl } from "@/constants/Endpoint";
 import LoadingView from "../loading";
 import ErrorView from "../error";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
+import useDebounce from "@/hooks/useDebounce";
+import useCoffeeSearch from "@/hooks/useCoffeeSearch";
 
 const HomeScreen = () => {
   const headerHeight = useHeaderHeight();
   const [activeTextFilter, setActiveTextFilter] = useState("Recommended");
+  const debouncedSearch = useDebounce(activeTextFilter);
 
   const handleFilterClick = (filter: string) => {
     setActiveTextFilter(filter);
   };
 
-  const {
-    data: coffeeList,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["coffeData"],
-    queryFn: () => fetch(`${baseUrl}/hot`).then((res) => res.json()),
-    staleTime: Infinity, // Data never goes stale
-  });
+  const { filteredCoffeeData, isLoading, isError } =
+    useCoffeeSearch();
 
   if (isLoading) {
     return <LoadingView />;
@@ -39,8 +32,8 @@ const HomeScreen = () => {
 
   return (
     <ScrollView
-      className="bg-primary"
-      contentContainerStyle={{
+      className="bg-primary "
+      style={{
         paddingTop: headerHeight,
       }}
     >
@@ -70,15 +63,12 @@ const HomeScreen = () => {
         </TouchableOpacity>
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {/* {CoffeItems.map((coffee, index) => (
-          <CoffeCard item={coffee} key={index} />
-        ))} */}
-        {coffeeList.map((coffee: ApiCoffeItem, index: number) => (
+        {filteredCoffeeData.map((coffee: ApiCoffeItem, index: number) => (
           <CoffeeCard item={coffee} key={index} />
         ))}
       </ScrollView>
 
-      <View className="bg-slate-900 flex flex-row justify-between items-center mx-2 rounded-md p-2">
+      <View className="bg-slate-900 flex flex-row justify-between items-center mt-5 mx-2 rounded-md p-2">
         <Text className="text-textColor font-sans">Rate the app</Text>
         <View className="flex flex-row gap-1">
           <Ionicons

@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, FlatList } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
@@ -33,7 +33,7 @@ const CoffeeCard = ({ item }: { item: ApiCoffeItem }) => {
       title: item.title!,
       price: price!,
       cupSize: { title: "S", sizePrice: 1 },
-      quantity: 1
+      quantity: 1,
     };
 
     addItemToCart(cartItem);
@@ -41,47 +41,49 @@ const CoffeeCard = ({ item }: { item: ApiCoffeItem }) => {
 
   return (
     <TouchableOpacity
-      className="w-44 rounded-xl bg-slate-900 m-2"
+      className="rounded-xl bg-slate-900 m-2 w-44 "
       onPress={navigateToDetails}
     >
-      <View className="relative">
-        <Image
-          source={{ uri: item.image }}
-          alt="coffe-img"
-          className="w-full h-44 rounded-t-xl object-cover "
-        />
-        <View className="absolute top-2 right-2 bg-secondary rounded-full px-2 py-1 flex flex-row items-center">
-          <Ionicons
-            name="star"
-            color={Colors.textColor}
-            style={{ marginRight: 3 }}
+      <View>
+        <View className="relative">
+          <Image
+            source={{ uri: item.image }}
+            alt="coffe-img"
+            className="w-full h-44 rounded-t-xl object-cover "
           />
-          <Text className="text-textColor font-bold">{rating}</Text>
-        </View>
-      </View>
-
-      <View className="p-2 flex flex-col">
-        <Text className="font-sans font-semibold text-lg text-textColor">
-          {item.title}
-        </Text>
-
-        <Text className="text-textColorMuted text-sm">
-          {item.ingredients[0]}
-        </Text>
-
-        <View className="flex flex-row justify-between items-center mb-[-15px] mt-2">
-          <View className="flex flex-row items-center gap-1">
-            <Text className="font-bold text-secondary font-sans">$</Text>
-            <Text className="font-semibold text-textColor font-sans text-xl">
-              {price}
-            </Text>
+          <View className="absolute top-2 right-2 bg-secondary rounded-full px-2 py-1 flex flex-row items-center">
+            <Ionicons
+              name="star"
+              color={Colors.textColor}
+              style={{ marginRight: 3 }}
+            />
+            <Text className="text-textColor font-bold">{rating}</Text>
           </View>
-          <TouchableOpacity
-            className="bg-secondary rounded-md items-center justify-center"
-            onPress={toggleAddCart}
-          >
-            <Ionicons name="add" size={24} color={Colors.textColor} />
-          </TouchableOpacity>
+        </View>
+
+        <View className="p-2">
+          <Text className="font-sans font-semibold text-lg text-textColor">
+            {item.title}
+          </Text>
+
+          <Text className="text-textColorMuted text-sm">
+            {item.ingredients[0]}
+          </Text>
+
+          <View className="flex flex-row justify-between items-center mt-2">
+            <View className="flex flex-row items-center gap-1">
+              <Text className="font-bold text-secondary font-sans">$</Text>
+              <Text className="font-semibold text-textColor font-sans text-xl">
+                {price}
+              </Text>
+            </View>
+            <TouchableOpacity
+              className="bg-secondary rounded-md items-center justify-center"
+              onPress={toggleAddCart}
+            >
+              <Ionicons name="add" size={24} color={Colors.textColor} />
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </TouchableOpacity>

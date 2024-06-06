@@ -12,8 +12,10 @@ const CoffeCartItem = ({ item }: { item: CartItem }) => {
           className="w-12 h-12 rounded object-cover "
         />
         <View>
-          <Text className="text-textColor text-base">{item.title}</Text>
-          <Text className="text-textColorMuted text-sm">
+          <Text className="text-textColor text-base font-sans">
+            {item.title}
+          </Text>
+          <Text className="text-textColorMuted text-sm font-sans">
             {item.cupSize.title}
           </Text>
         </View>

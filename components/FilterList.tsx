@@ -1,4 +1,4 @@
-import { ScrollView, Text, View, TouchableOpacity } from "react-native";
+import { ScrollView, Text, TouchableOpacity } from "react-native";
 import { FilterItems } from "@/constants/DummyDatas";
 import { useState } from "react";
 
@@ -13,7 +13,7 @@ const FilterList = () => {
     <ScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
-      className="gap-2 mt-2 mx-1"
+      className="gap-2 m-1"
     >
       {FilterItems.map((item, index) => (
         <TouchableOpacity
@@ -23,7 +23,7 @@ const FilterList = () => {
           }`}
           onPress={() => handleFilterClick(index)}
         >
-          <Text className="text-textColor font-sans">{item.title}</Text>
+          <Text className="text-textColor font-sans">{item.value}</Text>
         </TouchableOpacity>
       ))}
     </ScrollView>
