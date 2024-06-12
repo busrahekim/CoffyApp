@@ -1,9 +1,14 @@
-import { useState } from "react";
+// import { useEffect, useState } from "react";
+// import useFetchCoffees from "./useFetchCoffees";
 
-const useCoffeeFilter = () => {
-  const [filter, setFilter] = useState("");
+// const useCoffeeFilter = () => {
+//   const [filter, setFilter] = useState("iced");
+//   const { coffeeList, isLoading, isError } = useFetchCoffees(filter);
 
-  return;
-};
+//   useEffect(() => {
+//   }, [filter]);
 
-export default useCoffeeFilter;
+//   return { filter, setFilter, coffeeList, isLoading, isError };
+// };
+
+// export default useCoffeeFilter;

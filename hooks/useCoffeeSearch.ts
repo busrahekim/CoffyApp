@@ -3,8 +3,10 @@ import useFetchCoffees from "./useFetchCoffees";
 
 const useCoffeeSearch = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const { coffeeList, isLoading, isError } = useFetchCoffees();
-  const [filteredCoffeeData, setFilteredCoffeeData] = useState<ApiCoffeItem[]>([]);
+  const { coffeeList, isLoading, isError } = useFetchCoffees("iced");
+  const [filteredCoffeeData, setFilteredCoffeeData] = useState<ApiCoffeItem[]>(
+    []
+  );
 
   useEffect(() => {
     if (coffeeList) {
@@ -13,9 +15,8 @@ const useCoffeeSearch = () => {
       );
       setFilteredCoffeeData(filteredData);
     }
-    console.log("coffeelist: ", filteredCoffeeData);
-    console.log("search: ", searchTerm);
-    
+    // console.log("coffeelist: ", filteredCoffeeData);
+    // console.log("search: ", searchTerm);
   }, [searchTerm, coffeeList]);
 
   return { searchTerm, setSearchTerm, filteredCoffeeData, isLoading, isError };

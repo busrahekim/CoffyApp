@@ -1,12 +1,17 @@
 import { ScrollView, Text, TouchableOpacity } from "react-native";
 import { FilterItems } from "@/constants/DummyDatas";
 import { useState } from "react";
+import useFetchCoffees from "@/hooks/useFetchCoffees";
+// import useCoffeeFilter from "@/hooks/useCoffeeFilter";
 
 const FilterList = () => {
   const [activeFilterIndex, setActiveFilterIndex] = useState(0);
+  // const { setFilter } = useCoffeeFilter();
+  const { setFilter } = useFetchCoffees();
 
   const handleFilterClick = (index: number) => {
     setActiveFilterIndex(index);
+    setFilter(FilterItems[index].key);
   };
 
   return (

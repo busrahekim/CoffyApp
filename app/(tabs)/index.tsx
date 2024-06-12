@@ -2,25 +2,31 @@ import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { useHeaderHeight } from "@react-navigation/elements";
 import FilterList from "@/components/FilterList";
 import CoffeeCard from "@/components/CoffeeCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoadingView from "../loading";
 import ErrorView from "../error";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
 import useDebounce from "@/hooks/useDebounce";
 import useCoffeeSearch from "@/hooks/useCoffeeSearch";
+import useFetchCoffees from "@/hooks/useFetchCoffees";
+// import useCoffeeFilter from "@/hooks/useCoffeeFilter";
 
 const HomeScreen = () => {
   const headerHeight = useHeaderHeight();
   const [activeTextFilter, setActiveTextFilter] = useState("Recommended");
-  const debouncedSearch = useDebounce(activeTextFilter);
+  // const debouncedSearch = useDebounce(activeTextFilter);
 
   const handleFilterClick = (filter: string) => {
     setActiveTextFilter(filter);
   };
+  // const { filter, coffeeList, isLoading, isError } = useCoffeeFilter();
+  const { filter, coffeeList, isLoading, isError } = useFetchCoffees();
 
-  const { filteredCoffeeData, isLoading, isError } =
-    useCoffeeSearch();
+  useEffect(() => {
+    console.log("Filtered Coffees:", coffeeList);
+    console.log("Current filter:", filter);
+  }, [filter, coffeeList]);
 
   if (isLoading) {
     return <LoadingView />;
@@ -63,7 +69,7 @@ const HomeScreen = () => {
         </TouchableOpacity>
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {filteredCoffeeData.map((coffee: ApiCoffeItem, index: number) => (
+        {coffeeList?.map((coffee: ApiCoffeItem, index: number) => (
           <CoffeeCard item={coffee} key={index} />
         ))}
       </ScrollView>
